@@ -4,10 +4,47 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toll Calc</title>
+    <title>TollCalc</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
     <script type="module" src='./js/main.js'></script>
+    <script type="module" src="./js/semanticDriver.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
-    
+    <div class="ui container">
+        <form class="ui form" id='find-toll'>
+            <div class="field">
+                <label>Source address</label>
+                <input type="text" name="source-address" placeholder="1 Oxford Avenue, Sydney, NSW">
+            </div>
+            <div class="field">
+                <label>Destination address</label>
+                <input type="text" name="destination-address" placeholder="90 Oxford Avenue, Wooop woop, NSW">
+            </div>
+            <div class="field">
+                <label>Departure date</label>
+                <input type="date" name="departure-date">
+            </div>
+            <div class="field">
+                <label>Departure time</label>
+                <input type="time" name="departure-time">
+            </div>
+            <div class="field">
+                <label>Vehicle class</label>
+                <div class="ui selection dropdown">
+                    <input type="hidden" name="vehicle-class">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">A</div>
+                    <div class="menu">
+                        <div class="item" data-value='A'>A</div>
+                        <div class="item" data-value='B'>B</div>
+                    </div>
+                </div>
+            </div>
+            <button class="ui button" type="submit">Calculate toll!</button>
+        </form>
+    </div>
 </body>
 </html>

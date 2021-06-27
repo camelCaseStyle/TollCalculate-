@@ -16,32 +16,41 @@ const Model = {
         },
         tollRoutes: {
             routes:null
-        }
+        },
+        vehicleClass: null,
+        departureDateTime : null, 
     },
-    getGeoCode : function(address, isDestination){
+    load: function(formData){
+        this.getGeoCode(formData.sourceAddress)
+        .then(response =>{
+            console.log(response)
+            this.data.sourceLocation = response.results[0].geometry.location;
+        })
+
+        this.data.vehicleClass = formData.vehicleClass; 
+        this.data.departureDateTime = formData.departureDateTime;
+
+        this.getGeoCode(formData.destinationAddress)
+        .then(response =>{
+            this.data.destinationLocation = response.results[0].geometry.location;
+            window.dispatchEvent(new CustomEvent('modelUpdated'));
+        })
+        
+
+    },
+    getGeoCode : function(address){
         let location = {
             'address':address
         }
-        fetch(this.geoCodeAPIURL, {
+        return fetch(this.geoCodeAPIURL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(location)
-        })
-        .then(res => res.json())
-        .then(data=>{
-            if(isDestination){
-                this.data.destinationLocation = data.results[0].geometry.location;
-                let event  = new CustomEvent('geoCodeUpdated');
-                window.dispatchEvent(event);
-            }else{
-                this.data.sourceLocation = data.results[0].geometry.location;
-            }
-            
-        })
+        }).then(response => response.json())
     },
-    getTollPricing: function(vehicleClass, departureTime){
+    getTollPricing: function(){
         let body = {
             "origin": {
               "lat": this.data.sourceLocation.lat, 
@@ -53,21 +62,21 @@ const Model = {
               "lng": this.data.destinationLocation.lng,
               "name": "string"
             },
-            "vehicleClass": vehicleClass,
+            "vehicleClass": this.data.vehicleClass,
             "vehicleClassByMotorway": {
-              "LCT": vehicleClass,
-              "CCT": vehicleClass,
-              "ED": vehicleClass,
-              "M2": vehicleClass,
-              "M5": vehicleClass,
-              "M7": vehicleClass,
-              "SHB": vehicleClass,
-              "SHT": vehicleClass,
-              "M4": vehicleClass
+              "LCT": this.data.vehicleClass,
+              "CCT": this.data.vehicleClass,
+              "ED": this.data.vehicleClass,
+              "M2": this.data.vehicleClass,
+              "M5": this.data.vehicleClass,
+              "M7": this.data.vehicleClass,
+              "SHB": this.data.vehicleClass,
+              "SHT": this.data.vehicleClass,
+              "M4": this.data.vehicleClass
             },
             "excludeToll": false,
             "includeSteps": false,
-            "departureTime": departureTime
+            "departureTime": this.data.departureDateTime
           }
         fetch(this.tollRequesURL, {
             method: 'POST', 
@@ -78,10 +87,8 @@ const Model = {
         }).then(response =>{
             return response.json();
         }).then(data =>{
-            this.data.tollRoutes = data; 
-            let event  = new CustomEvent('costUpdated');
-            console.log(this.data.tollRoutes)
-            window.dispatchEvent(event);
+            this.data.tollRoutes = data.routes; 
+            window.dispatchEvent(new CustomEvent('tollPricesUpdated'));
         })
     },
     getLocationLat : function(){
