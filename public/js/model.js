@@ -27,7 +27,7 @@ const Model = {
             this.data.sourceLocation = response.results[0].geometry.location;
         })
 
-        this.data.vehicleClass = formData.vehicleClass; 
+        this.data.vehicleClass = formData.vehicleClass || 'A'; 
         this.data.departureDateTime = formData.departureDateTime;
 
         this.getGeoCode(formData.destinationAddress)
@@ -88,6 +88,7 @@ const Model = {
             return response.json();
         }).then(data =>{
             this.data.tollRoutes = data.routes; 
+            console.log(this.data.tollRoutes)
             window.dispatchEvent(new CustomEvent('tollPricesUpdated'));
         })
     },
@@ -99,8 +100,9 @@ const Model = {
     },
     getRoutes: function(){
         console.log(this.data.tollRoutes)
-        this.data.tollRoutes.routes.forEach(route =>{
-            console.log(route.summary )
-        })
+        return this.data.tollRoutes;
+    },
+    getVehicleClass: function(){
+        return this.data.vehicleClass;
     }
 }

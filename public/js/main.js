@@ -1,4 +1,6 @@
 import {Model} from './model.js' 
+import {Views} from './views.js'
+
 
 window.onload = (event)=>{
     console.log('window loaded');
@@ -23,8 +25,9 @@ function calculateToll(event){
     if(!departureDate){
         departureDate = new Date(); 
     } else if(!departureTime){
-        departureTime = new Date(); 
+        departureTime = new Date().getTime(); 
     }
+    
     let departureDateTime = new Date(departureDate + ' '+ departureTime).toISOString(); 
     let formData = {
         sourceAddress:sourceAddress, 
@@ -39,4 +42,17 @@ function calculateToll(event){
 // post: calculates the toll 
 window.addEventListener('modelUpdated', (event)=>{
     Model.getTollPricing();
+})
+
+window.addEventListener('tollPricesUpdated', (event)=>{
+    let allRoutes = Model.getRoutes(); 
+    let routes = allRoutes.map(route =>{
+        return {
+            summary : route.summary, 
+            price : route.maxChargeInCents/100,
+            vehicleClass: Model.getVehicleClass()
+        }
+    })
+    console.log(routes)
+    Views.TollRoadsView(routes);
 })

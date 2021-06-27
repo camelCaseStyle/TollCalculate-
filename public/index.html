@@ -9,12 +9,15 @@
 
     <script type="module" src='./js/main.js'></script>
     <script type="module" src="./js/semanticDriver.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./stylesheets/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />    
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 </head>
 <body>
     <div class="ui container">
-        <form class="ui form" id='find-toll'>
+        <form class="ui form" id='find-toll' action="/">
             <div class="field">
                 <label>Source address</label>
                 <input type="text" name="source-address" placeholder="1 Oxford Avenue, Sydney, NSW">
@@ -45,6 +48,25 @@
             </div>
             <button class="ui button" type="submit">Calculate toll!</button>
         </form>
+        <div id ='toll-results'></div>
     </div>
+    <script id="toll-results-template" type="text/x-handlebars-template">
+        <div class="ui two column centered grid">
+            <table class="ui very basic collapsing celled table">
+                <tr class="center aligned">
+                    <th><h2>Route</h2></th>
+                    <th><h2>Vehicle class</h2></th>
+                    <th><h2>Price</h2></th>
+                </tr>
+                {{#each routes}}
+                    <tr id="routes-summary-price"class="center aligned">
+                        <td>{{this.summary}}</td>
+                        <td>{{this.vehicleClass}}</td>
+                        <td>${{this.price}}</td>
+                    </tr>
+                {{/each}}
+            </table>
+        </div>
+    </script>
 </body>
 </html>
