@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TollCalc</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
+    
     <script type="module" src='./js/main.js'></script>
     <script type="module" src="./js/semanticDriver.js"></script>
     <link rel="stylesheet" href="./stylesheets/main.css">
@@ -14,17 +14,25 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBB1lxde0rSe-q_NRlK9HTgb6wpvHDs_s0&libraries=places&v=weekly"
+     defer
+  >
+    
+</script>
+    <script type="module" src='./js/places.js' defer></script>
+    
 </head>
 <body>
     <div class="ui container">
         <form class="ui form" id='find-toll' action="/">
             <div class="field">
                 <label>Source address</label>
-                <input type="text" name="source-address" placeholder="1 Oxford Avenue, Sydney, NSW">
+                <input type="text" name="source-address" class ='address'placeholder="1 Oxford Avenue, Sydney, NSW">
             </div>
             <div class="field">
                 <label>Destination address</label>
-                <input type="text" name="destination-address" placeholder="90 Oxford Avenue, Wooop woop, NSW">
+                <input type="text" name="destination-address" class ='address' placeholder="90 Oxford Avenue, Wooop woop, NSW">
             </div>
             <div class="field">
                 <label>Departure date</label>

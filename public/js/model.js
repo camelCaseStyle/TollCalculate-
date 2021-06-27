@@ -32,7 +32,9 @@ const Model = {
 
         this.getGeoCode(formData.destinationAddress)
         .then(response =>{
+            console.log(response)
             this.data.destinationLocation = response.results[0].geometry.location;
+            
             window.dispatchEvent(new CustomEvent('modelUpdated'));
         })
         
