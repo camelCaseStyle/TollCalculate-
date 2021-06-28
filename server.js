@@ -3,7 +3,7 @@ require('dotenv').config()
 const axios = require('axios').default;
 const express = require('express');
 const app = express(); 
-app.listen(3000, ()=> console.log('Server is running'));
+app.listen(process.env.PORT, ()=> console.log('Server is running'));
 app.use(express.static('public'));
 app.use(express.json());
 

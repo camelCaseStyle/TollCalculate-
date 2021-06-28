@@ -10,6 +10,7 @@
   "author": "Anubhav",
   "license": "ISC",
   "dependencies": {
+    "Constants":"",
     "axios": "^0.21.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1"
