@@ -56,20 +56,3 @@ window.addEventListener('tollPricesUpdated', (event)=>{
     console.log(routes)
     Views.TollRoadsView(routes);
 })
-
-
-// function initAutocomplete() {
-//     address1Field = document.querySelector("#source-address");
-//     address2Field = document.querySelector("#destination-address");
-
-//     // Create the autocomplete object, restricting the search predictions to
-//     // addresses in the US and Canada.
-//     autocomplete = new google.maps.places.Autocomplete(address1Field, {
-//       fields: ["address_components", "geometry"],
-//       types: ["address"],
-//     });
-//     address1Field.focus();
-//     // When the user selects an address from the drop-down, populate the
-//     // address fields in the form.
-//     autocomplete.addListener("place_changed", fillInAddress);
-//   }
