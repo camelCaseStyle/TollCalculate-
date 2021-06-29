@@ -59,22 +59,19 @@
         <div id ='toll-results'></div>
     </div>
     <script id="toll-results-template" type="text/x-handlebars-template">
-        <div class="ui two column centered grid">
-            <table class="ui very basic collapsing celled table">
-                <tr class="center aligned">
-                    <th><h2>Route</h2></th>
-                    <th><h2>Vehicle class</h2></th>
-                    <th><h2>Price</h2></th>
-                </tr>
+            
+            <div class="ui cards">
                 {{#each routes}}
-                    <tr id="routes-summary-price"class="center aligned">
-                        <td>{{this.summary}}</td>
-                        <td>{{this.vehicleClass}}</td>
-                        <td>${{this.price}}</td>
-                    </tr>
+                <div class="ui card">
+                    <div class="content">
+                        <div class="header">${{this.price}}</div>
+                        <h4 class="ui sub header">{{this.summary}}</h4>
+                    </div>
+                </div>
                 {{/each}}
-            </table>
-        </div>
+            </div>
+            
+            
     </script>
 </body>
 </html>
