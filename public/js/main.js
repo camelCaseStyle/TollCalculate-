@@ -1,6 +1,6 @@
 import {Model} from './model.js' 
 import {Views} from './views.js'
-
+import {Util} from './util.js'
 
 window.onload = (event)=>{
     console.log('window loaded');
@@ -50,7 +50,9 @@ window.addEventListener('tollPricesUpdated', (event)=>{
         return {
             summary : route.summary, 
             price : route.maxChargeInCents/100,
-            vehicleClass: Model.getVehicleClass()
+            vehicleClass: Model.getVehicleClass(),
+            distance: Util.getPrettyDistance(route.distance),
+            duration: Util.getPrettyTime(route.duration), 
         }
     })
     console.log(routes)
