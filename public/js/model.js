@@ -21,23 +21,15 @@ const Model = {
         departureDateTime : null, 
     },
     load: function(formData){
-        this.getGeoCode(formData.sourceAddress)
-        .then(response =>{
-            console.log(response)
-            this.data.sourceLocation = response.results[0].geometry.location;
-        })
-
-        this.data.vehicleClass = formData.vehicleClass || 'A'; 
-        this.data.departureDateTime = formData.departureDateTime;
-
-        this.getGeoCode(formData.destinationAddress)
-        .then(response =>{
-            console.log(response)
-            this.data.destinationLocation = response.results[0].geometry.location;
-            
+        let sourceLoacation = this.getGeoCode(formData.sourceAddress);
+        let destinationLocation = this.getGeoCode(formData.destinationAddress);
+        Promise.all([sourceLoacation, destinationLocation]).then(values =>{
+            this.data.sourceLocation = values[0].results[0].geometry.location;
+            this.data.destinationLocation = values[1].results[0].geometry.location;
+            this.data.vehicleClass = formData.vehicleClass || 'A'; 
+            this.data.departureDateTime = formData.departureDateTime;
             window.dispatchEvent(new CustomEvent('modelUpdated'));
-        })
-        
+        });
 
     },
     getGeoCode : function(address){
@@ -53,6 +45,7 @@ const Model = {
         }).then(response => response.json())
     },
     getTollPricing: function(){
+        
         let body = {
             "origin": {
               "lat": this.data.sourceLocation.lat, 
@@ -80,6 +73,7 @@ const Model = {
             "includeSteps": false,
             "departureTime": this.data.departureDateTime
           }
+          console.log(body)
         fetch(this.tollRequesURL, {
             method: 'POST', 
             headers:{

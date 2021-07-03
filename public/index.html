@@ -28,11 +28,11 @@
         <form class="ui form" id='find-toll' action="#toll-results">
             <div class="field">
                 <label>Source address</label>
-                <input type="text" name="source-address" class ='address'placeholder="1 Oxford Avenue, Sydney, NSW">
+                <input type="text" name="source-address" class ='address'placeholder="1 Oxford Avenue, Sydney, NSW" required aria-required="true">
             </div>
             <div class="field">
                 <label>Destination address</label>
-                <input type="text" name="destination-address" class ='address' placeholder="90 Oxford Avenue, Wooop woop, NSW">
+                <input type="text" name="destination-address" class ='address' placeholder="1 Darling Drive, Sydney, NSW" required aria-required="true" >
             </div>
             <div class="field">
                 <label>Departure date</label>
@@ -59,19 +59,19 @@
         <div id ='toll-results'></div>
     </div>
     <script id="toll-results-template" type="text/x-handlebars-template">
-            
-            <div class="ui cards">
-                {{#each routes}}
-                <div class="ui card">
-                    <div class="content">
-                        <div class="header">${{this.price}}</div>
-                        <h4 class="ui sub header">{{this.summary}}</h4>
-                    </div>
+        <div class="ui cards">
+            {{#each routes}}
+            <div class="ui card">
+                <div class="content">
+                    <div class="header">${{this.price}}</div>
+                    <h4 class="ui sub header">{{this.summary}}</h4>
                 </div>
-                {{/each}}
             </div>
-            
-            
+            {{/each}}
+        </div>
+    </script>
+    <script id="toll-results-loading-template" type="text/x-handlebars-template">
+        <div class="ui active centered inline loader"></div>
     </script>
 </body>
 </html>

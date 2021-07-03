@@ -3,6 +3,9 @@ export {Views};
 const Views = {
     TollRoadsView : function(data){
         applyTemplate('toll-results', 'toll-results-template', {routes:data});
+    },
+    LoadingView: function(data){
+        applyTemplate('toll-results', 'toll-results-loading-template', {routes:data});
     }
 }
 function applyTemplate (targetId, templateId, data){

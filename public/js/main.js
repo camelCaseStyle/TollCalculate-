@@ -40,6 +40,7 @@ function calculateToll(event){
 // pre: Desintation address and source address both loaded 
 // post: calculates the toll 
 window.addEventListener('modelUpdated', (event)=>{
+    Views.LoadingView();
     Model.getTollPricing();
 })
 
