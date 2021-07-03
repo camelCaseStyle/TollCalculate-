@@ -21,10 +21,9 @@ function calculateToll(event){
     let departureTime = this.elements['departure-time'].value; 
     let departureDate = this.elements['departure-date'].value; 
     let vehicleClass = this.elements['vehicle-class'].value; 
-    console.log(vehicleClass)
     if(!departureDate){
         let date  = new Date();
-        departureDate = date.getMonth()+'/'+date.getDay()+'/'+date.getFullYear(); 
+        departureDate = date.getFullYear()+'/'+date.getMonth()+'/'+date.getDay(); 
     } else if(!departureTime){
         departureTime = new Date().toTimeString(); 
     }

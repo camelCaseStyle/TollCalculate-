@@ -17,6 +17,8 @@ app.post('/geoLocation', (request, response)=>{
     axios.get(Constants.geoCodeAPIURL+`key=AIzaSyALUiYReYJjr6VgTxzfYgw7IDeMFX7KU-w&address=${request.body.address}`)
     .then(function(res){
         response.send(res.data)
+    }).catch(error =>{
+        console.log(error)
     })
     
 })
@@ -30,5 +32,7 @@ app.post('/tollCalculate', (request, response)=>{
         }
     }).then(res =>{
         response.send(res.data);
+    }).catch(error =>{
+        console.log(error);
     })
 })
