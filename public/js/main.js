@@ -27,7 +27,7 @@ function calculateToll(event){
     } else if(!departureTime){
         departureTime = new Date().toTimeString(); 
     }
-    let departureDateTime = new Date(departureDate + ' '+ departureTime).toISOString(); 
+    let departureDateTime = new Date(departureDate.replace(/-/g, "/") + ' '+ departureTime).toISOString(); 
     let formData = {
         sourceAddress:sourceAddress, 
         destinationAddress: destinationAddress, 
