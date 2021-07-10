@@ -5,6 +5,7 @@ const Views = {
     TollRoadsView : function(data){
         let routes = data.map(route =>{
             return {
+                polyline: route.geometry,
                 summary : route.summary, 
                 price : route.maxChargeInCents/100,
                 distance: Util.getPrettyDistance(route.distance),
@@ -18,6 +19,9 @@ const Views = {
     }, 
     TollSortView: function(){
         applyTemplate('filter-options', 'filter-options-template');
+    },
+    DetailedView: function(detailedData){
+        applyTemplate('detailed-data', 'detailed-data-template', {route:detailedData});
     }
 }
 function applyTemplate (targetId, templateId, data){

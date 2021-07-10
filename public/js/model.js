@@ -5,8 +5,6 @@ const Model = {
     geoCodeAPIURL: '/geoLocation',
     tollRequesURL: '/tollCalculate',
     possibleRoutesURL: '/getAllRoutes?',
-    // Given an address, 
-    // returns its latitude and longitude
     data: {
         sourceLocation: null,
         destinationLocation: null, 
@@ -33,7 +31,6 @@ const Model = {
                 return response.json()
             }).then(data =>{
                 this.data.possibleRoutes = data; 
-                console.log(this.data.possibleRoutes);
                 window.dispatchEvent(new CustomEvent('modelUpdated'));
             })
             
@@ -96,11 +93,8 @@ const Model = {
 
         
     },
-    getLocationLat : function(){
-        return this.data.location.lat; 
-    }, 
-    getLocationLong: function(){
-        return this.location.lng; 
+    getTollRouteByGeometry: function(geometry){
+        return this.data.tollRoutes.get(geometry);
     },
     getRoutes: function(){
         return Array.from(this.data.tollRoutes.values());

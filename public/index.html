@@ -60,16 +60,22 @@
         <div id ='toll-results'></div>
     </div>
     <script id="toll-results-template" type="text/x-handlebars-template">
-        <div class="ui cards">
+        <div class="ui link divided items">
             {{#each routes}}
-            <div class="ui card">
-                <div class="content">
-                    <div class="header">${{this.price}}</div>
-                    <h4 class="ui sub header">{{this.summary}}</h4>
-                    <div class="summary">{{this.duration}}</div>
-                    <div class="summary">{{this.distance}}</div>
-                </div>
-            </div>
+                <a class="item" href="/#!/route/{{this.polyline}}">
+                    <div class="content">
+                        <div class="ui tiny image">
+                            <i class="location arrow icon"></i>
+                        </div>
+                        <div class="header">${{this.price}}</div>
+                        <div class="description">
+                            <h4 class="ui sub header">{{this.summary}}</h4>
+                            <div class="summary">{{this.duration}}</div>
+                            <div class="summary">{{this.distance}}</div>
+                        </div>
+                    </div>
+                </a>
+        
             {{/each}}
         </div>
     </script>

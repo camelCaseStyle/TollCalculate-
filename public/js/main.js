@@ -9,6 +9,8 @@ window.onload = (event)=>{
 
 function bindings(){
     let findTollButton = document.getElementById('find-toll');
+    document.getElementById('source-address').value = "27 Merinda Avenue, Baulkham Hills NSW, Australia";
+    document.getElementById('destination-address').value = "Harbourside, Darling Drive, Sydney NSW, Australia";
     if(findTollButton){
         findTollButton.addEventListener('submit', calculateToll);
     }
@@ -18,6 +20,12 @@ function bindings(){
     if(sortPrice) sortPrice.addEventListener('click', sortRoutes);
     if(sortDistance) sortDistance.addEventListener('click', sortRoutes);
     if(sortDuration) sortDuration.addEventListener('click', sortRoutes);
+    let tollCards = document.getElementsByClassName('item');
+    if(tollCards){
+        for(let i = 0; i < tollCards.length; i++){
+            tollCards[i].addEventListener('click', showDetailedView)
+        }
+    }
 }
 
 function calculateToll(event){
@@ -69,4 +77,8 @@ function sortRoutes(){
             Views.TollRoadsView(Model.getRoutesByDuration());
             break; 
     }
+}
+
+function showDetailedView(){
+    console.log(Model.getTollRouteByGeometry(this.dataset.polyline))
 }
