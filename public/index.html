@@ -56,6 +56,7 @@
             </div>
             <button class="ui button" type="submit">Calculate toll!</button>
         </form>
+        <div id='filter-options'></div>
         <div id ='toll-results'></div>
     </div>
     <script id="toll-results-template" type="text/x-handlebars-template">
@@ -74,6 +75,17 @@
     </script>
     <script id="toll-results-loading-template" type="text/x-handlebars-template">
         <div class="ui active centered inline loader"></div>
+    </script>
+    <script id="filter-options-template" type="text/x-handlebars-template">
+        <div class="ui dropdown">
+            <i class="sort icon"></i>
+            <span class="text">Sort by</span>
+            <div class="menu">
+                <div class="item" id="sort-price">Price</div>
+                <div class="item" id="sort-distance">Distance</div>
+                <div class="item" id="sort-duration">Duration</div>
+            </div>
+        </div>
     </script>
 </body>
 </html>

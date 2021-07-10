@@ -1,11 +1,23 @@
 export {Views};
+import {Util} from "./util.js";
 
 const Views = {
     TollRoadsView : function(data){
-        applyTemplate('toll-results', 'toll-results-template', {routes:data});
+        let routes = data.map(route =>{
+            return {
+                summary : route.summary, 
+                price : route.maxChargeInCents/100,
+                distance: Util.getPrettyDistance(route.distance),
+                duration: Util.getPrettyTime(route.duration), 
+            }
+        })
+        applyTemplate('toll-results', 'toll-results-template', {routes:routes});
     },
-    LoadingView: function(data){
-        applyTemplate('toll-results', 'toll-results-loading-template', {routes:data});
+    LoadingView: function(){
+        applyTemplate('toll-results', 'toll-results-loading-template');
+    }, 
+    TollSortView: function(){
+        applyTemplate('filter-options', 'filter-options-template');
     }
 }
 function applyTemplate (targetId, templateId, data){

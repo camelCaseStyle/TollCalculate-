@@ -1,3 +1,3 @@
-$('.ui.selection.dropdown')
-  .dropdown()
-;
+$(document).ready(function() {
+    $('.ui.dropdown').dropdown();
+});

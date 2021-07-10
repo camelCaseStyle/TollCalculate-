@@ -12,6 +12,12 @@ function bindings(){
     if(findTollButton){
         findTollButton.addEventListener('submit', calculateToll);
     }
+    let sortPrice = document.getElementById('sort-price');
+    let sortDistance = document.getElementById('sort-distance');
+    let sortDuration = document.getElementById('sort-duration')
+    if(sortPrice) sortPrice.addEventListener('click', sortRoutes);
+    if(sortDistance) sortDistance.addEventListener('click', sortRoutes);
+    if(sortDuration) sortDuration.addEventListener('click', sortRoutes);
 }
 
 function calculateToll(event){
@@ -45,16 +51,22 @@ window.addEventListener('modelUpdated', (event)=>{
 })
 
 window.addEventListener('tollPricesUpdated', (event)=>{
-    let allRoutes = Model.getRoutes(); 
-    let routes = allRoutes.map(route =>{
-        return {
-            summary : route.summary, 
-            price : route.maxChargeInCents/100,
-            vehicleClass: Model.getVehicleClass(),
-            distance: Util.getPrettyDistance(route.distance),
-            duration: Util.getPrettyTime(route.duration), 
-        }
-    })
-    console.log(routes)
-    Views.TollRoadsView(routes);
+    Views.TollSortView();
+    Views.TollRoadsView(Model.getRoutes());
+    Util.pageAnimations(); 
+    bindings(); 
 })
+
+function sortRoutes(){ 
+    switch(this.id){
+        case 'sort-price':
+            Views.TollRoadsView(Model.getRoutesByPrice());
+            break; 
+        case 'sort-distance':
+            Views.TollRoadsView(Model.getRoutesByDistance());
+            break; 
+        case 'sort-duration':
+            Views.TollRoadsView(Model.getRoutesByDuration());
+            break; 
+    }
+}

@@ -100,5 +100,25 @@ const Model = {
     },
     getVehicleClass: function(){
         return this.data.vehicleClass;
+    },
+    getRoutesByPrice: function(){
+        return this.data.tollRoutes.sort(comparePrice);
+    },
+    getRoutesByDuration: function(){
+        return this.data.tollRoutes.sort(compareDuration);
+    },
+    getRoutesByDistance: function(){
+        return this.data.tollRoutes.sort(compareDistance);
     }
+}
+
+
+function comparePrice(a,b){
+    return b.maxChargeInCents - a.maxChargeInCents; 
+}
+function compareDuration(a,b){
+    return b.duration - a.duration;
+}
+function compareDistance(a,b){
+    return b.distance - a.distance; 
 }

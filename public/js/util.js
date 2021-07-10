@@ -16,5 +16,10 @@ const Util ={
     getPrettyDistance: function(distanceInMeters){
         let meters = parseInt(distanceInMeters, 10);
         return `${Number.parseFloat(meters/1000).toFixed(2)} KM`; 
+    },
+    pageAnimations: function(){
+        $(document).ready(function() {
+            $('.ui.dropdown').dropdown();
+        });
     }
 }
