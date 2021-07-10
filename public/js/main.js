@@ -9,8 +9,6 @@ window.onload = (event)=>{
 
 function bindings(){
     let findTollButton = document.getElementById('find-toll');
-    document.getElementById('source-address').value = "27 Merinda Avenue, Baulkham Hills NSW, Australia";
-    document.getElementById('destination-address').value = "Harbourside, Darling Drive, Sydney NSW, Australia";
     if(findTollButton){
         findTollButton.addEventListener('submit', calculateToll);
     }
