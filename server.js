@@ -14,8 +14,14 @@ app.use(express.json());
 
 // Get the geocode for a given location
 app.post('/geoLocation', (request, response)=>{
-    axios.get(Constants.geoCodeAPIURL+`key=AIzaSyALUiYReYJjr6VgTxzfYgw7IDeMFX7KU-w&address=${request.body.address}`)
-    .then(function(res){
+    axios.get(Constants.geoCodeAPIURL,
+        {
+            params:{
+                'key': `AIzaSyALUiYReYJjr6VgTxzfYgw7IDeMFX7KU-w`,
+                'address':`${request.body.address}`
+            }
+        }
+    ).then(function(res){
         response.send(res.data)
     }).catch(error =>{
         console.log(error)
@@ -29,6 +35,21 @@ app.post('/tollCalculate', (request, response)=>{
         headers:{
             'Content-Type':'application/json',
             Authorization: `apikey pPPPcmFo0knYMcgKnY68PTeI6lOFi8LBWn5C`
+        }
+    }).then(res =>{
+        response.send(res.data);
+    }).catch(error =>{
+        console.log(error);
+    })
+})
+
+app.get('/getAllRoutes', (request, response)=>{
+    axios.get(Constants.directionsAPI, {
+        params :{
+            'key': 'AIzaSyBB1lxde0rSe-q_NRlK9HTgb6wpvHDs_s0',
+            'origin': `${request.headers.source}`,
+            'destination':`${request.headers.destination}`,
+            'alternatives': 'true'
         }
     }).then(res =>{
         response.send(res.data);
