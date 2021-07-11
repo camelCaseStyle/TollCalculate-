@@ -59,6 +59,14 @@
         <div id='filter-options'></div>
         <div id ='toll-results'></div>
     </div>
+    <script id="error-template" type="text/x-handlebars-template">
+        <div class="ui negative message">
+            <i class="close icon"></i>
+            <div class="header">
+              We're sorry we could not find any routes.
+            </div>
+        </div>
+    </script>
     <script id="toll-results-template" type="text/x-handlebars-template">
         <div class="ui link divided items">
             {{#each routes}}

@@ -84,11 +84,15 @@ const Model = {
         });
         Promise.all(promises).then(tollRoutes =>{
             let i = 0;
+            if(tollRoutes[0].error){
+                window.dispatchEvent(new CustomEvent('tollPricesUpdatedFailed'));
+                return; 
+            }
             tollRoutes.forEach(tollRoute =>{
                 this.data.tollRoutes.set(tollRoute.match.geometry, tollRoute.match);
                 i += 1; 
             })
-            window.dispatchEvent(new CustomEvent('tollPricesUpdated'));
+            window.dispatchEvent(new CustomEvent('tollPricesUpdatedSuccess'));
         })
 
         

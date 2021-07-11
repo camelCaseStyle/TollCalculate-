@@ -22,6 +22,9 @@ const Views = {
     },
     DetailedView: function(detailedData){
         applyTemplate('detailed-data', 'detailed-data-template', {route:detailedData});
+    },
+    ErrorView: function(){
+        applyTemplate('toll-results', 'error-template', {error:true});
     }
 }
 function applyTemplate (targetId, templateId, data){

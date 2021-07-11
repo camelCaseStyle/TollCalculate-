@@ -57,11 +57,16 @@ window.addEventListener('modelUpdated', (event)=>{
     Model.getTollPricing();
 })
 
-window.addEventListener('tollPricesUpdated', (event)=>{
+window.addEventListener('tollPricesUpdatedSuccess', (event)=>{
     Views.TollSortView();
     Views.TollRoadsView(Model.getRoutes());
     Util.pageAnimations(); 
     bindings(); 
+})
+
+window.addEventListener('tollPricesUpdatedFailed', ()=>{
+    Views.ErrorView();
+    Util.pageAnimations(); 
 })
 
 function sortRoutes(){ 
