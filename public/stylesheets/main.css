@@ -5,3 +5,14 @@
     font-size: 1.5em;
 }
 
+.segment{
+    margin: 1em;
+}
+
+.more-details{
+    width: 100%;
+}
+#map {
+    height: 400px;
+    width: 100%;
+}

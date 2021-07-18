@@ -21,7 +21,55 @@ const Views = {
         applyTemplate('filter-options', 'filter-options-template');
     },
     DetailedView: function(detailedData){
+        console.log(detailedData.tollsCharged)
         applyTemplate('detailed-data', 'detailed-data-template', {route:detailedData});
+        const sydney = { lat:  -33.865143, lng: 151.209900};
+        // The map, centered at Uluru
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 12,
+          center: sydney,
+        });
+        let tollsCharged = detailedData.tollsCharged;
+        tollsCharged.forEach(toll =>{
+            toll.gantryVisits.forEach(gantry =>{
+                new google.maps.Marker({
+                    position: {lat: gantry.gantry.latitude, lng: gantry.gantry.longitude},
+                    map,
+                    title: gantry.gantry.gantryRef,
+                  });
+            })
+        })
+        let decodedPath =  google.maps.geometry.encoding.decodePath(detailedData.geometry);
+
+        const route = new google.maps.Polyline({
+            path: decodedPath,
+            geodesic: true,
+            strokeColor: "#FF0000",
+            strokeOpacity: 1.0,
+            strokeWeight: 2,
+            icons: [
+                {
+                    'icon':{
+                        path:google.maps.SymbolPath.CIRCLE 
+                    },
+                    'offset': '0%'
+                },
+                {
+                    'icon': {
+                        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                    },
+                    'offset': '100%'
+                },
+
+            ]
+        });
+        route.setMap(map);
+        let latLngBounds = new google.maps.LatLngBounds(
+            decodedPath[0],
+            decodedPath[decodedPath.length -1]
+        )
+        map.fitBounds(latLngBounds);
+
     },
     ErrorView: function(){
         applyTemplate('toll-results', 'error-template', {error:true});

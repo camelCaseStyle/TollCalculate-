@@ -15,13 +15,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
     <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBB1lxde0rSe-q_NRlK9HTgb6wpvHDs_s0&libraries=places&v=weekly"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBB1lxde0rSe-q_NRlK9HTgb6wpvHDs_s0&libraries=places,geometry&v=weekly"
      defer
   >
-    
 </script>
     <script type="module" src='./js/places.js' defer></script>
-    
 </head>
 <body>
     <div class="ui container">
@@ -58,6 +56,7 @@
         </form>
         <div id='filter-options'></div>
         <div id ='toll-results'></div>
+        <div id="detailed-data"></div>
     </div>
     <script id="error-template" type="text/x-handlebars-template">
         <div class="ui negative message">
@@ -68,27 +67,35 @@
         </div>
     </script>
     <script id="toll-results-template" type="text/x-handlebars-template">
-        <div class="ui link divided items">
+        
+
+        <div class="ui equal width grid">
             {{#each routes}}
-                <a class="item" href="/#!/route/{{this.polyline}}">
+            <div class="column">
+                <div class="ui segment">
                     <div class="content">
                         <div class="ui tiny image">
                             <i class="location arrow icon"></i>
                         </div>
-                        <div class="header">${{this.price}}</div>
-                        <div class="description">
+                        <div class="ui header">${{this.price}}</div>
+                        <div class="ui description">
                             <h4 class="ui sub header">{{this.summary}}</h4>
                             <div class="summary">{{this.duration}}</div>
                             <div class="summary">{{this.distance}}</div>
                         </div>
                     </div>
-                </a>
-        
+                    <button class="ui button more-details" data-polyline="{{this.polyline}}">More details</button>
+                </div>
+            </div>   
             {{/each}}
         </div>
     </script>
     <script id="toll-results-loading-template" type="text/x-handlebars-template">
-        <div class="ui active centered inline loader"></div>
+        <div class="ui basic segment">
+            <div class="ui active inverted dimmer">
+              <div class="ui text loader">Getting all possible routes</div>
+            </div>
+          </div>
     </script>
     <script id="filter-options-template" type="text/x-handlebars-template">
         <div class="ui dropdown">
@@ -100,6 +107,9 @@
                 <div class="item" id="sort-duration">Duration</div>
             </div>
         </div>
+    </script>
+    <script id="detailed-data-template" type="text/x-handlebars-template">
+        <div id="map"></div>
     </script>
 </body>
 </html>

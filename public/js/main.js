@@ -24,9 +24,16 @@ function bindings(){
             tollCards[i].addEventListener('click', showDetailedView)
         }
     }
+    let moreDetailButtons = document.getElementsByClassName('more-details');
+    if(moreDetailButtons){
+        for(let i = 0; i < moreDetailButtons.length; i++){
+            moreDetailButtons[i].addEventListener('click', showDetailedView);
+        }
+    }
 }
 
 function calculateToll(event){
+    Views.LoadingView();
     event.preventDefault(); 
     let sourceAddress = this.elements['source-address'].value;
     let destinationAddress = this.elements['destination-address'].value;
@@ -53,7 +60,6 @@ function calculateToll(event){
 // pre: Desintation address and source address both loaded 
 // post: calculates the toll 
 window.addEventListener('modelUpdated', (event)=>{
-    Views.LoadingView();
     Model.getTollPricing();
 })
 
@@ -84,5 +90,6 @@ function sortRoutes(){
 }
 
 function showDetailedView(){
+    Views.DetailedView(Model.getTollRouteByGeometry(this.dataset.polyline));
     console.log(Model.getTollRouteByGeometry(this.dataset.polyline))
 }

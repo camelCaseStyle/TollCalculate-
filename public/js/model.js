@@ -14,6 +14,7 @@ const Model = {
         departureDateTime : null, 
     },
     load: function(formData){
+        cleanState(this); // always cleanly load new data when this method is called 
         let sourceLoacation = this.getGeoCode(formData.sourceAddress);
         let destinationLocation = this.getGeoCode(formData.destinationAddress);
         Promise.all([sourceLoacation, destinationLocation]).then(values =>{
@@ -126,4 +127,13 @@ function compareDuration(a,b){
 }
 function compareDistance(a,b){
     return a.distance - b.distance; 
+}
+
+function cleanState(self){
+    self.data.sourceLoacation = null; 
+    self.data.destinationLocation = null; 
+    self.data.tollRoutes = new Map(); 
+    self.data.possibleRoutes = null; 
+    self.data.vehicleClass = null; 
+    self.data.departureDateTime = null; 
 }
