@@ -33,6 +33,9 @@ const Model = {
             }).then(data =>{
                 this.data.possibleRoutes = data; 
                 window.dispatchEvent(new CustomEvent('modelUpdated'));
+            }).catch(error=>{
+                console.log(error);
+                window.dispatchEvent(new CustomEvent('tollPricesUpdatedFailed'));
             })
             
         });
@@ -48,7 +51,10 @@ const Model = {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(location)
-        }).then(response => response.json())
+        }).then(response => response.json()).catch(error=>{
+            console.log(error);
+            window.dispatchEvent(new CustomEvent('tollPricesUpdatedFailed'));
+        })
     },
     getTollPricing: function(){
         // Need to get toll pricing for all routes and push to data model
@@ -94,6 +100,9 @@ const Model = {
                 i += 1; 
             })
             window.dispatchEvent(new CustomEvent('tollPricesUpdatedSuccess'));
+        }).catch(error =>{
+            console.log(error);
+            window.dispatchEvent(new CustomEvent('tollPricesUpdatedFailed'));
         })
 
         

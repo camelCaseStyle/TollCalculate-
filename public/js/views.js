@@ -26,8 +26,7 @@ const Views = {
         const sydney = { lat:  -33.865143, lng: 151.209900};
         // The map, centered at Uluru
         const map = new google.maps.Map(document.getElementById("map"), {
-          zoom: 12,
-          center: sydney,
+          zoom: 12
         });
         let tollsCharged = detailedData.tollsCharged;
         tollsCharged.forEach(toll =>{

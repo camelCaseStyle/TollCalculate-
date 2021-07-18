@@ -24,7 +24,7 @@ app.post('/geoLocation', (request, response)=>{
     ).then(function(res){
         response.send(res.data)
     }).catch(error =>{
-        console.log(error)
+        response.status(400);
     })
     
 })
@@ -39,7 +39,7 @@ app.post('/tollCalculate', (request, response)=>{
     }).then(res =>{
         response.send(res.data);
     }).catch(error =>{
-        console.log(error);
+        response.status(400);
     })
 })
 
@@ -54,6 +54,6 @@ app.get('/getAllRoutes', (request, response)=>{
     }).then(res =>{
         response.send(res.data);
     }).catch(error =>{
-        console.log(error);
+        response.status(400);
     })
 })
