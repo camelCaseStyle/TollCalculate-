@@ -26,11 +26,11 @@
         <form class="ui form" id='find-toll' action="#toll-results">
             <div class="field">
                 <label>Source address</label>
-                <input type="text" name="source-address" class ='address'placeholder="1 Oxford Avenue, Sydney, NSW" required aria-required="true">
+                <input onfocus="this.select();" type="text" name="source-address" class ='address'placeholder="1 Oxford Avenue, Sydney, NSW" required aria-required="true">
             </div>
             <div class="field">
                 <label>Destination address</label>
-                <input type="text" name="destination-address" class ='address' placeholder="1 Darling Drive, Sydney, NSW" required aria-required="true" >
+                <input onfocus="this.select();" type="text" name="destination-address" class ='address' placeholder="1 Darling Drive, Sydney, NSW" required aria-required="true" >
             </div>
             <div class="field">
                 <label>Departure date</label>
@@ -56,7 +56,6 @@
         </form>
         <div id='filter-options'></div>
         <div id ='toll-results'></div>
-        <div id="detailed-data"></div>
     </div>
     <script id="error-template" type="text/x-handlebars-template">
         <div class="ui negative message">
@@ -89,6 +88,7 @@
             </div>   
             {{/each}}
         </div>
+        <div id="detailed-data"></div>
     </script>
     <script id="toll-results-loading-template" type="text/x-handlebars-template">
         <div class="ui basic segment">
@@ -109,7 +109,44 @@
         </div>
     </script>
     <script id="detailed-data-template" type="text/x-handlebars-template">
-        <div id="map"></div>
+        <table class="ui celled structured table">
+            <thead>
+                <tr>
+                    <th colspan="3"><h2 class="ui centered aligned header">Journey breakdown by gantries</h2></th>
+                </tr>
+                <tr>
+                    <th>Motorway Name</th>
+                    <th>Gantry Name</th>
+                    <th>Gantry reference</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                {{#each tollsCharged}}
+                    {{#each this.gantryVisits}}
+                        <tr>
+                            <td class="collapsing">
+                                {{this.gantry.motorwayName}}
+                            </td>
+                            <td class="collapsing">
+                                {{this.gantry.gantryName}}
+                            </td>
+                            <td class="collapsing">
+                                {{this.gantryRef}}
+                            </td>
+                        </tr>
+                    {{/each}}
+                {{/each}}
+                <tr>
+                    <td class="collapsing" colspan="3">
+                        <div id="map"></div>
+                    </td>
+                </tr>
+                
+            </tbody>
+
+        </table>
+
     </script>
 </body>
 </html>

@@ -19,25 +19,43 @@ const Views = {
     }, 
     TollSortView: function(){
         applyTemplate('filter-options', 'filter-options-template');
+        $(document).ready(function() {
+            $('.ui.dropdown').dropdown();
+        });
+        $('.message .close')
+        .on('click', function() {
+          $(this)
+            .closest('.message')
+            .transition('fade');
+        });
     },
     DetailedView: function(detailedData){
         console.log(detailedData.tollsCharged)
-        applyTemplate('detailed-data', 'detailed-data-template', {route:detailedData});
-        const sydney = { lat:  -33.865143, lng: 151.209900};
-        // The map, centered at Uluru
+        applyTemplate('detailed-data', 'detailed-data-template', {tollsCharged:detailedData.tollsCharged});
         const map = new google.maps.Map(document.getElementById("map"), {
           zoom: 12
         });
         let tollsCharged = detailedData.tollsCharged;
-        tollsCharged.forEach(toll =>{
-            toll.gantryVisits.forEach(gantry =>{
-                new google.maps.Marker({
+        tollsCharged.forEach((toll,j) =>{
+            toll.gantryVisits.forEach((gantry, i) =>{
+                console.log(i, j)
+                const marker = new google.maps.Marker({
                     position: {lat: gantry.gantry.latitude, lng: gantry.gantry.longitude},
                     map,
-                    title: gantry.gantry.gantryRef,
-                  });
+                    label: `${j+i+1}`,
+                });
+                marker.addListener("click", () => {
+                    new google.maps.InfoWindow({
+                        content: `${gantry.gantry.gantryName}, ${gantry.gantry.gantryRef}`,
+                    }).open({
+                      anchor: marker,
+                      map,
+                      shouldFocus: false,
+                    });
+                });
             })
         })
+
         let decodedPath =  google.maps.geometry.encoding.decodePath(detailedData.geometry);
 
         const route = new google.maps.Polyline({

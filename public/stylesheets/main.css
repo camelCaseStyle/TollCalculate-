@@ -16,3 +16,6 @@
     height: 400px;
     width: 100%;
 }
+.ui .segment{
+    box-sizing: border-box;
+}

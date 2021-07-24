@@ -18,7 +18,7 @@ function bindings(){
     if(sortPrice) sortPrice.addEventListener('click', sortRoutes);
     if(sortDistance) sortDistance.addEventListener('click', sortRoutes);
     if(sortDuration) sortDuration.addEventListener('click', sortRoutes);
-    let tollCards = document.getElementsByClassName('item');
+    let tollCards = document.getElementsByClassName('more-details');
     if(tollCards){
         for(let i = 0; i < tollCards.length; i++){
             tollCards[i].addEventListener('click', showDetailedView)
@@ -87,6 +87,7 @@ function sortRoutes(){
             Views.TollRoadsView(Model.getRoutesByDuration());
             break; 
     }
+    bindings()
 }
 
 function showDetailedView(){
