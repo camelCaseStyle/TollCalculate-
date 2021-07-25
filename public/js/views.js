@@ -42,6 +42,7 @@ const Views = {
           zoom: 12
         });
         let tollsCharged = detailedData.tollsCharged;
+        let markers = []; 
         tollsCharged.forEach((toll,j) =>{
             toll.gantryVisits.forEach((gantry, i) =>{
                 console.log(i, j)
@@ -59,6 +60,7 @@ const Views = {
                       shouldFocus: false,
                     });
                 });
+                markers.push(marker);
             })
         })
 
@@ -86,13 +88,12 @@ const Views = {
 
             ]
         });
-        route.setMap(map);
-        let latLngBounds = new google.maps.LatLngBounds(
-            decodedPath[0],
-            decodedPath[decodedPath.length -1]
-        )
+        let latLngBounds = new google.maps.LatLngBounds();
+        decodedPath.forEach(path =>{
+            latLngBounds.extend(path);
+        })
         map.fitBounds(latLngBounds);
-
+        route.setMap(map);
     },
     ErrorView: function(){
         applyTemplate('toll-results', 'error-template', {error:true});
