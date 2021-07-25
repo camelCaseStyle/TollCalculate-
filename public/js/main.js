@@ -2,6 +2,8 @@ import {Model} from './model.js'
 import {Views} from './views.js'
 import {Util} from './util.js'
 
+
+Views.MainContentView();
 window.onload = (event)=>{
     console.log('window loaded');
     bindings(); 
@@ -87,10 +89,30 @@ function sortRoutes(){
             Views.TollRoadsView(Model.getRoutesByDuration());
             break; 
     }
+    document.getElementById(this.id).classList.add('active');
     bindings()
 }
 
-function showDetailedView(){
+function showDetailedView(event){
+    event.preventDefault(); 
     Views.DetailedView(Model.getTollRouteByGeometry(this.dataset.polyline));
     console.log(Model.getTollRouteByGeometry(this.dataset.polyline))
+}
+window.onhashchange = function(event){
+    loadPage(); 
+}
+
+function loadPage(){
+    let hash = Util.splitHash(window.location.hash);
+    console.log(hash)
+    switch(hash.path){
+        case '':
+            console.log('Loading main view')
+            Views.MainContentView();
+            break;
+        case 'about':
+            console.log('Loading about view')
+            Views.AboutContentView();
+            break;
+    }
 }

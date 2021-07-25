@@ -19,3 +19,13 @@
 .ui .segment{
     box-sizing: border-box;
 }
+#button-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15% 0 15%;
+    margin-bottom: 1vh;
+}
+#detailed-data{
+    margin-top: 1vh;
+}

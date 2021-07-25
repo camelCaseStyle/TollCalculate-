@@ -22,41 +22,18 @@
     <script type="module" src='./js/places.js' defer></script>
 </head>
 <body>
-    <div class="ui container">
-        <form class="ui form" id='find-toll' action="#toll-results">
-            <div class="field">
-                <label>Source address</label>
-                <input onfocus="this.select();" type="text" name="source-address" class ='address'placeholder="1 Oxford Avenue, Sydney, NSW" required aria-required="true">
-            </div>
-            <div class="field">
-                <label>Destination address</label>
-                <input onfocus="this.select();" type="text" name="destination-address" class ='address' placeholder="1 Darling Drive, Sydney, NSW" required aria-required="true" >
-            </div>
-            <div class="field">
-                <label>Departure date</label>
-                <input type="date" name="departure-date">
-            </div>
-            <div class="field">
-                <label>Departure time</label>
-                <input type="time" name="departure-time">
-            </div>
-            <div class="field">
-                <label>Vehicle class</label>
-                <div class="ui selection dropdown">
-                    <input type="hidden" name="vehicle-class">
-                    <i class="dropdown icon"></i>
-                    <div class="default text">A</div>
-                    <div class="menu">
-                        <div class="item" data-value='A'>A</div>
-                        <div class="item" data-value='B'>B</div>
-                    </div>
-                </div>
-            </div>
-            <button class="ui button" type="submit">Calculate toll!</button>
-        </form>
-        <div id='filter-options'></div>
-        <div id ='toll-results'></div>
+    <div class="ui menu">
+        <a class="header item" href="/">
+            NSW TollCalc
+        </a>
+        <a class="item" href="/#!/about">
+            About
+        </a>
+        <a class="item" href="/#!/developerNotes">
+            Behind scenes
+        </a>
     </div>
+    <div class="ui container" id="main-content"></div>
     <script id="error-template" type="text/x-handlebars-template">
         <div class="ui negative message">
             <i class="close icon"></i>
@@ -66,8 +43,11 @@
         </div>
     </script>
     <script id="toll-results-template" type="text/x-handlebars-template">
-        
-
+        <div id="button-container">
+            <button class="ui button huge" id="sort-price">Sort by price</button>
+            <button class="ui button huge" id="sort-distance">Sort by distance</button>
+            <button class="ui button huge" id="sort-duration">Sort by duration</button>
+        </div>
         <div class="ui equal width grid">
             {{#each routes}}
             <div class="column">
@@ -83,7 +63,7 @@
                             <div class="summary">{{this.distance}}</div>
                         </div>
                     </div>
-                    <button class="ui button more-details" data-polyline="{{this.polyline}}">More details</button>
+                    <a class="ui button more-details" data-polyline="{{this.polyline}}">More details</a>
                 </div>
             </div>   
             {{/each}}
@@ -98,15 +78,7 @@
           </div>
     </script>
     <script id="filter-options-template" type="text/x-handlebars-template">
-        <div class="ui dropdown">
-            <i class="sort icon"></i>
-            <span class="text">Sort by</span>
-            <div class="menu">
-                <div class="item" id="sort-price">Price</div>
-                <div class="item" id="sort-distance">Distance</div>
-                <div class="item" id="sort-duration">Duration</div>
-            </div>
-        </div>
+
     </script>
     <script id="detailed-data-template" type="text/x-handlebars-template">
         <table class="ui celled structured table">
@@ -147,6 +119,59 @@
 
         </table>
 
+    </script>
+
+    <script id="main-content-template" type="text/x-handlebars-template">
+        <form class="ui form" id='find-toll' action="#toll-results">
+            <div class="field">
+                <label>Source address</label>
+                <input onfocus="this.select();" type="text" name="source-address" class ='address'placeholder="1 Oxford Avenue, Sydney, NSW" required aria-required="true">
+            </div>
+            <div class="field">
+                <label>Destination address</label>
+                <input onfocus="this.select();" type="text" name="destination-address" class ='address' placeholder="1 Darling Drive, Sydney, NSW" required aria-required="true" >
+            </div>
+            <div class="field">
+                <label>Departure date</label>
+                <input type="date" name="departure-date">
+            </div>
+            <div class="field">
+                <label>Departure time</label>
+                <input type="time" name="departure-time">
+            </div>
+            <div class="field">
+                <label>Vehicle class</label>
+                <div class="ui selection dropdown">
+                    <input type="hidden" name="vehicle-class">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">A</div>
+                    <div class="menu">
+                        <div class="item" data-value='A'>A</div>
+                        <div class="item" data-value='B'>B</div>
+                    </div>
+                </div>
+            </div>
+            <button class="ui button" type="submit">Calculate toll!</button>
+        </form>
+        <div id='filter-options'></div>
+        <div id ='toll-results'></div>
+    </script>
+    <script id="about-content-template" type="text/x-handlebars-template">
+        <div class="ui padded segment">
+            <p>
+                <h1> Hi there,</h1>
+                <p>The aim of this application is to allow users to be able to calculate tolls across 
+                    New South Wales. This web application "TollCalc" makes use of open data APIs provided 
+                    by Service NSW. It also relies on google maps API to find geo location (think latitude and longitude)
+                    and draw those pretty maps. 
+                </p>
+                <p>
+                    Service NSW has commented that tolls provided by its APIs may not be 100% accurate. I still think that it provides a good indication as to how much a user can expect to pay. 
+                    I will continue to work on this. I want to build better UI and better accuracy. Who knows may be I will build the app with reactJS or port to a mobile app in the future. 
+                    For more information on the current solution design please click on "Behind Scenes".
+                </p>
+            </p>
+        </div>
     </script>
 </body>
 </html>

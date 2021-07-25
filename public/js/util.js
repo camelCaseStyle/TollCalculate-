@@ -28,5 +28,17 @@ const Util ={
             .transition('fade');
         });
         
+    },
+    splitHash: function(hash){
+        const regex = "#!/([^/]*)/?(.*)?";
+        const match = hash.match(regex);
+        if (match) {
+            return {
+                path: match[1],
+                id: match[2]
+            }
+        } else {
+            return { path: "" }
+        }
     }
 }

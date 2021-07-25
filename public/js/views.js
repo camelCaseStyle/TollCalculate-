@@ -2,6 +2,12 @@ export {Views};
 import {Util} from "./util.js";
 
 const Views = {
+    MainContentView: function(data){
+        applyTemplate('main-content', 'main-content-template', {routes:data});
+    },
+    AboutContentView: function(data){
+        applyTemplate('main-content', 'about-content-template', {routes:data});
+    },
     TollRoadsView : function(data){
         let routes = data.map(route =>{
             return {
