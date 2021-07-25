@@ -96,8 +96,11 @@ const Model = {
                 return; 
             }
             tollRoutes.forEach(tollRoute =>{
-                this.data.tollRoutes.set(tollRoute.match.geometry, tollRoute.match);
-                i += 1; 
+                if(tollRoute.match.geometry){
+                    this.data.tollRoutes.set(tollRoute.match.geometry, tollRoute.match);
+                    i += 1; 
+                }
+                
             })
             window.dispatchEvent(new CustomEvent('tollPricesUpdatedSuccess'));
         }).catch(error =>{
