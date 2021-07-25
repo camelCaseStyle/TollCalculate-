@@ -96,7 +96,7 @@ const Model = {
                 return; 
             }
             tollRoutes.forEach(tollRoute =>{
-                if(tollRoute.match.geometry){
+                if(tollRoute.match){
                     this.data.tollRoutes.set(tollRoute.match.geometry, tollRoute.match);
                     i += 1; 
                 }
